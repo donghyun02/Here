@@ -1,12 +1,10 @@
 <template>
     <div class="restaurant-card">
-        <div class="restaurant-card__image">
-            <b-skeleton-img no-aspect></b-skeleton-img>
-        </div>
+        <img class="restaurant-card__image" :src="imageURL">
         <div class="restaurant-card__content">
-            <p class="restaurant-card__name"><b-skeleton width="10%"></b-skeleton></p>
-            <p class="restaurant-card__rating"><b-skeleton width="20%"></b-skeleton></p>
-            <p class="restaurant-card__address"><b-skeleton width="40%"></b-skeleton></p>
+            <h3 class="restaurant-card__name">{{ name }}</h3>
+            <p class="restaurant-card__rating">{{ rating || '후기 없음' }}</p>
+            <p class="restaurant-card__address">{{ address }}</p>
         </div>
         <div class="restaurant-card__button-wrapper">
             <b-button disabled>예약하기</b-button>
@@ -17,6 +15,7 @@
 <script>
 export default {
     name: 'RestaurantCard',
+    props: ['imageURL', 'name', 'rating', 'address'],
 }
 </script>
 

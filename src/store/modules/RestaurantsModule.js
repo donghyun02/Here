@@ -17,15 +17,12 @@ export default {
         },
     },
     actions: {
-        fetchRestaurants(context) {
-            axios.get('/restaurants')
+        fetchRestaurants(context, search = '') {
+            axios.get(`/restaurants/?search=${search}`)
                 .then((response) => {
                     context.commit('setRestaurants', response.data)
                     context.commit('setIsFetched', true)
                 })
         }
-    },
-    getters: {
-
     },
 }
