@@ -12,6 +12,6 @@ export default {
     name: 'Reservation',
     components: {
         Navigation,
-    }
+    },
 }
 </script>

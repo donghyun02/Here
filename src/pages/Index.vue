@@ -14,13 +14,24 @@
 <script>
 import Navigation from '@/components/Navigation.vue'
 import RestaurantCard from '@/components/RestaurantCard.vue'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapActions } = createNamespacedHelpers('RestaurantsModule')
 
 export default {
     name: 'Index',
     components: {
         Navigation,
         RestaurantCard,
-    }
+    },
+    methods: {
+        ...mapActions([
+            'fetchRestaurants',
+        ]),
+    },
+    created() {
+        this.fetchRestaurants()
+    },
 }
 </script>
 
