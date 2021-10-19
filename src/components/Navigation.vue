@@ -38,6 +38,9 @@ export default {
 </script>
 
 <style scoped>
+.navigation {
+    width: 100%;
+}
 
 .navigation__content {
     padding: 20px;
