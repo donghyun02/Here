@@ -16,7 +16,7 @@ Vue.use(IconsPlugin)
 
 const routes = [
   { path: '/', component: Index },
-  { path: '/reservation', component: Reservation },
+  { path: '/reservation/:id', component: Reservation },
 ]
 const router = new VueRouter({
   mode: 'history',

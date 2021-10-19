@@ -1,7 +1,7 @@
 <template>
     <div class="navigation">
         <b-navbar class="navigation__content" toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand href="#">여기로</b-navbar-brand>
+            <b-navbar-brand to="/">여기로</b-navbar-brand>
             <b-form-input 
                 class="navigation__input" 
                 placeholder="식당명, 지명 등" 

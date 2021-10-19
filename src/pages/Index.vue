@@ -11,6 +11,7 @@
                 class="index__card" 
                 v-for="restaurant in restaurants" 
                 :key="restaurant.id"
+                :id="restaurant.id"
                 :name="restaurant.name"
                 :imageURL="restaurant.image"
                 :rating="restaurant.rating"

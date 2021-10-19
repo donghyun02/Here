@@ -7,7 +7,7 @@
             <p class="restaurant-card__address">{{ address }}</p>
         </div>
         <div class="restaurant-card__button-wrapper">
-            <b-button disabled>예약하기</b-button>
+            <b-button :to="`/reservation/${id}`">예약하기</b-button>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@
 <script>
 export default {
     name: 'RestaurantCard',
-    props: ['imageURL', 'name', 'rating', 'address'],
+    props: ['id', 'imageURL', 'name', 'rating', 'address'],
 }
 </script>
 
