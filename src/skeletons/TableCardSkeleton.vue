@@ -4,9 +4,8 @@
             <b-skeleton-img no-aspect></b-skeleton-img>
         </div>
         <div class="table-card-skeleton__content">
-            <p class="table-card-skeleton__name"><b-skeleton width="10%"></b-skeleton></p>
-            <p class="table-card-skeleton__rating"><b-skeleton width="20%"></b-skeleton></p>
-            <p class="table-card-skeleton__address"><b-skeleton width="40%"></b-skeleton></p>
+            <p class="table-card-skeleton__name"><b-skeleton width="30%"></b-skeleton></p>
+            <p class="table-card-skeleton__rating"><b-skeleton width="50%"></b-skeleton></p>
         </div>
     </div>
 </template>
