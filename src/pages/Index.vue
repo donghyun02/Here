@@ -7,9 +7,9 @@
             <restaurant-card-skeleton class="index__card" />
         </div>
         <div class="index__content" v-else>
-            <restaurant-card 
-                class="index__card" 
-                v-for="restaurant in restaurants" 
+            <restaurant-card
+                class="index__card"
+                v-for="restaurant in restaurants"
                 :key="restaurant.id"
                 :id="restaurant.id"
                 :name="restaurant.name"

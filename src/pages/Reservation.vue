@@ -2,7 +2,7 @@
     <div class="reservation">
         <navigation />
         <div class="reservation__content">
-            <h3>레스토랑 이름</h3>
+            <h3>{{ restaurant.name }}</h3>
             <b-carousel
                 id="carousel"
                 class="reservation__carousel"
@@ -14,34 +14,22 @@
                 label-next=""
                 label-prev=""
             >
-                <b-carousel-slide>
+                <b-carousel-slide v-for="carousel in restaurant.carousel" :key="carousel.id">
                     <template #img>
-                        <div class="reservation__carousel-image">
-                            <b-skeleton-img no-aspect></b-skeleton-img>
-                        </div>
-                    </template>
-                </b-carousel-slide>
-
-                <b-carousel-slide>
-                    <template #img>
-                        <div class="reservation__carousel-image">
-                            <b-skeleton-img no-aspect></b-skeleton-img>
-                        </div>
-                    </template>
-                </b-carousel-slide>
-
-                <b-carousel-slide>
-                    <template #img>
-                        <div class="reservation__carousel-image">
-                            <b-skeleton-img no-aspect></b-skeleton-img>
-                        </div>
+                        <img class="reservation__carousel-image" :src="carousel.image">
                     </template>
                 </b-carousel-slide>
             </b-carousel>
 
-            <table-card-skeleton class="reservation__card" @click.native="showModal" />
-            <table-card-skeleton class="reservation__card" @click.native="showModal" />
-            <table-card-skeleton class="reservation__card" @click.native="showModal" />
+            <table-card
+              class="reservation__card"
+              @click.native="showModal"
+              v-for="seat in restaurant.seats"
+              :key="seat.id"
+              :name="seat.name"
+              :imageURL="seat.image"
+              :description="seat.description"
+            />
 
             <b-modal
                 id="modal-prevent-closing"
@@ -88,7 +76,7 @@
                     >
                         <b-form-datepicker id="date-input" v-model="date" :state="dateState" required></b-form-datepicker>
                     </b-form-group>
-                    
+
                     <b-form-group
                         label="시간"
                         label-for="time-input"
@@ -114,18 +102,20 @@
 
 <script>
 import Navigation from '@/components/Navigation.vue'
-import TableCardSkeleton from '@/skeletons/TableCardSkeleton.vue'
+import TableCard from '@/components/TableCard.vue'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('RestaurantsModule')
 
 export default {
     name: 'Reservation',
     components: {
         Navigation,
-        TableCardSkeleton,
+        TableCard,
     },
     data() {
         return {
             slide: 0,
-            name: '',
             nameState: null,
             phoneNumber: '',
             phoneNumberState: null,
@@ -141,7 +131,15 @@ export default {
             timeState: null,
         }
     },
+    computed: {
+      ...mapState({
+          restaurant: 'restaurant',
+      }),
+    },
     methods: {
+        ...mapActions([
+            'fetchRestaurant',
+        ]),
         showModal() {
             this.$refs['modal'].show()
         },
@@ -154,6 +152,9 @@ export default {
         cancel() {
             this.hideModal()
         },
+    },
+    created() {
+      this.fetchRestaurant(this.$route.params.id);
     },
 }
 </script>
