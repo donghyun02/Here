@@ -127,6 +127,9 @@ export default {
                 { value: '13:00', text: '13:00' },
                 { value: '14:00', text: '14:00' },
                 { value: '15:00', text: '15:00' },
+                { value: '16:00', text: '16:00' },
+                { value: '17:00', text: '17:00' },
+                { value: '18:00', text: '18:00' },
             ],
             timeState: null,
         }
@@ -147,7 +150,7 @@ export default {
             this.$refs['modal'].hide()
         },
         reserve() {
-            console.log('test')
+            this.$router.push('/done')
         },
         cancel() {
             this.hideModal()
@@ -191,6 +194,7 @@ export default {
 .reservation__carousel-image {
     width: 900px;
     height: 320px;
+    object-fit: cover;
 }
 
 .reservation__card {

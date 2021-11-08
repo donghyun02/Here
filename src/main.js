@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import Index from './pages/Index.vue'
 import Reservation from './pages/Reservation.vue'
+import Done from './pages/Done.vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import store from '@/store'
 
@@ -17,6 +18,7 @@ Vue.use(IconsPlugin)
 const routes = [
   { path: '/', component: Index },
   { path: '/reservation/:id', component: Reservation },
+  { path: '/done', component: Done },
 ]
 const router = new VueRouter({
   mode: 'history',
