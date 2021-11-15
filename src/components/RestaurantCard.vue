@@ -2,9 +2,9 @@
     <div class="restaurant-card">
         <img class="restaurant-card__image" :src="imageURL">
         <div class="restaurant-card__content">
-            <h3 class="restaurant-card__name">{{ name }}</h3>
-            <p class="restaurant-card__rating">{{ rating || '후기 없음' }}</p>
-            <p class="restaurant-card__address">{{ address }}</p>
+            <h3 class="restaurant-card__text">{{ name }}</h3>
+            <p class="restaurant-card__sub-text">{{ rating || '후기 없음' }}</p>
+            <p class="restaurant-card__sub-text">{{ address }}</p>
         </div>
         <div class="restaurant-card__button-wrapper">
             <b-button :to="`/reservation/${id}`">예약하기</b-button>
@@ -42,16 +42,13 @@ export default {
     padding: 20px;
 }
 
-.restaurant-card__rating {
-  font-weight: bold;
-  color: #858d94;
-}
-
-.restaurant-card__name {
+.restaurant-card__text {
+  margin-bottom: 20px;
   font-weight: bold;
 }
 
-.restaurant-card__address {
+.restaurant-card__sub-text {
+  margin: 10px 0 0;
   font-weight: bold;
   color: #858d94;
 }

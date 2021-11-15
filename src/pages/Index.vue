@@ -65,6 +65,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
 }
+
 .index__content {
   max-width: 900px;
   width: 100%;
@@ -78,6 +79,7 @@ export default {
 
 .index__filter {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .index__card {
