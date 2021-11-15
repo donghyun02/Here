@@ -33,12 +33,27 @@ export default {
 .restaurant-card__image {
     width: 180px;
     height: 180px;
+    border-radius: 10px;
 }
 
 .restaurant-card__content {
     max-width: 630px;
     width: 100%;
     padding: 20px;
+}
+
+.restaurant-card__rating {
+  font-weight: bold;
+  color: #858d94;
+}
+
+.restaurant-card__name {
+  font-weight: bold;
+}
+
+.restaurant-card__address {
+  font-weight: bold;
+  color: #858d94;
 }
 
 .restaurant-card__button-wrapper {
