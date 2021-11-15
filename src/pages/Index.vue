@@ -17,6 +17,7 @@
         :imageURL="restaurant.image"
         :rating="restaurant.rating"
         :address="restaurant.address"
+        :types="restaurant.types"
       />
     </div>
   </div>
