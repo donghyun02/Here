@@ -171,13 +171,15 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
+    user-select: none;
 }
 
 .reservation__content {
     max-width: 900px;
     width: 100%;
     height: 100%;
-    padding: 40px 0;
+    padding: 40px 0 120px;
 
     display: flex;
     flex-direction: column;
@@ -189,6 +191,7 @@ export default {
     max-width: 900px;
     width: 100%;
     height: 320px;
+    margin-bottom: 20px;
 }
 
 .reservation__carousel-image {
@@ -198,7 +201,7 @@ export default {
 }
 
 .reservation__card {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .reservation__time {

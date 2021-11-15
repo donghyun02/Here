@@ -64,12 +64,14 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  user-select: none;
 }
 
 .index__content {
   max-width: 900px;
   width: 100%;
-  margin: 20px;
+  margin: 40px;
 
   display: flex;
   flex-direction: column;
