@@ -61,18 +61,14 @@ export default {
           context.commit('setRestaurant', response.data)
         })
     },
-    reserve(context, seatId, datetime, name, email, phoneNumber) {
+    reserve(context, payload) {
       context.commit('setIsLoading', true)
-      axios.post('/reservations/', {
-        seatId,
-        datetime,
-        name,
-        email,
-        phoneNumber,
-      }).then((response) => {
-        context.commit('setReservation', response.data)
-        context.commit('setIsLoading', false)
-      })
+      axios.post('/reservations/', payload)
+        .then((response) => {
+          console.log(response.data)
+          context.commit('setReservation', response.data)
+          context.commit('setIsLoading', false)
+        })
     },
   },
 }

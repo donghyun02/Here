@@ -3,27 +3,10 @@
         <navigation />
         <div class="reservation__content">
             <h3>{{ restaurant.name }}</h3>
-            <b-carousel
-                id="carousel"
-                class="reservation__carousel"
-                v-model="slide"
-                no-animation
-                controls
-                indicators
-                :interval="0"
-                label-next=""
-                label-prev=""
-            >
-                <b-carousel-slide v-for="carousel in restaurant.carousel" :key="carousel.id">
-                    <template #img>
-                        <img class="reservation__carousel-image" :src="carousel.image">
-                    </template>
-                </b-carousel-slide>
-            </b-carousel>
 
             <table-card
               class="reservation__card"
-              @click.native="showModal"
+              @click.native="showModal(seat)"
               v-for="seat in restaurant.seats"
               :key="seat.id"
               :name="seat.name"
@@ -63,6 +46,21 @@
                             id="phone-number-input"
                             v-model="phoneNumber"
                             :state="phoneNumberState"
+                            required
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                        label="이메일"
+                        label-for="name-input"
+                        invalid-feedback="이메일을 입력 부탁드립니다."
+                        :state="emailState"
+                    >
+                        <b-form-input
+                            id="name-input"
+                            v-model="email"
+                            :state="emailState"
                             required
                         >
                         </b-form-input>
@@ -116,22 +114,31 @@ export default {
     data() {
         return {
             slide: 0,
+            name: '',
             nameState: null,
             phoneNumber: '',
             phoneNumberState: null,
+            email: '',
+            emailState: null,
             date: '',
             dateState: null,
             time: null,
             timeOptions: [
                 { value: null, text: '시간을 선택해주세요.' },
-                { value: '13:00', text: '13:00' },
-                { value: '14:00', text: '14:00' },
-                { value: '15:00', text: '15:00' },
-                { value: '16:00', text: '16:00' },
-                { value: '17:00', text: '17:00' },
-                { value: '18:00', text: '18:00' },
+                { value: '10:00:00', text: '10:00' },
+                { value: '11:00:00', text: '11:00' },
+                { value: '12:00:00', text: '12:00' },
+                { value: '13:00:00', text: '13:00' },
+                { value: '14:00:00', text: '14:00' },
+                { value: '15:00:00', text: '15:00' },
+                { value: '16:00:00', text: '16:00' },
+                { value: '17:00:00', text: '17:00' },
+                { value: '18:00:00', text: '18:00' },
+                { value: '19:00:00', text: '19:00' },
+                { value: '20:00:00', text: '20:00' },
             ],
             timeState: null,
+            selectedSeatId: null,
         }
     },
     computed: {
@@ -139,22 +146,44 @@ export default {
           restaurant: 'restaurant',
       }),
     },
+    watch: {
+      date(value) {
+      },
+    },
     methods: {
-        ...mapActions([
-            'fetchRestaurant',
-        ]),
-        showModal() {
-            this.$refs['modal'].show()
-        },
-        hideModal() {
-            this.$refs['modal'].hide()
-        },
-        reserve() {
-            this.$router.push('/done')
-        },
-        cancel() {
-            this.hideModal()
-        },
+      ...mapActions({
+        fetchRestaurant: 'fetchRestaurant',
+        reserveRequest: 'reserve',
+      }),
+      showModal(seat) {
+        this.selectedSeatId = seat.id
+        this.resetData()
+        this.$refs['modal'].show()
+      },
+      hideModal() {
+        this.$refs['modal'].hide()
+      },
+      reserve() {
+        const payload = {
+          seatId: this.selectedSeatId,
+          datetime: `${this.date} ${this.time}`,
+          name: this.name,
+          email: this.email,
+          phoneNumber: this.phoneNumber,
+        }
+        this.reserveRequest(payload)
+        this.$router.push('/done')
+      },
+      cancel() {
+        this.hideModal()
+      },
+      resetData() {
+        this.name = ''
+        this.phoneNumber = ''
+        this.email = ''
+        this.date = ''
+        this.time = null
+      },
     },
     created() {
       this.fetchRestaurant(this.$route.params.id);
