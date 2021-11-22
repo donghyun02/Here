@@ -19,6 +19,7 @@ export default {
         },
       },
     },
+    reservedTimes: [],
     isLoading: false,
   }),
   mutations: {
@@ -39,6 +40,9 @@ export default {
     },
     setReservation(state, value) {
       state.reservation = value
+    },
+    setReservedTimes(state, value) {
+      state.reservedTimes = value
     },
     setIsLoading(state, value) {
       state.isLoading = value
@@ -74,5 +78,12 @@ export default {
           context.commit('setIsLoading', false)
         })
     },
+    fetchReservedTimes(context, payload) {
+      axios.get(`/reserved-times/?seat_id=${payload.seatId}&date=${payload.date}`)
+        .then((response) => {
+          console.log(response.data)
+          context.commit('setReservedTimes', response.data)
+        })
+    }
   },
 }

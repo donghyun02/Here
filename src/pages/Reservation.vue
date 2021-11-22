@@ -123,20 +123,6 @@ export default {
             date: '',
             dateState: null,
             time: null,
-            timeOptions: [
-                { value: null, text: '시간을 선택해주세요.' },
-                { value: '10:00:00', text: '10:00' },
-                { value: '11:00:00', text: '11:00' },
-                { value: '12:00:00', text: '12:00' },
-                { value: '13:00:00', text: '13:00' },
-                { value: '14:00:00', text: '14:00' },
-                { value: '15:00:00', text: '15:00' },
-                { value: '16:00:00', text: '16:00' },
-                { value: '17:00:00', text: '17:00' },
-                { value: '18:00:00', text: '18:00' },
-                { value: '19:00:00', text: '19:00' },
-                { value: '20:00:00', text: '20:00' },
-            ],
             timeState: null,
             selectedSeatId: null,
         }
@@ -144,10 +130,38 @@ export default {
     computed: {
       ...mapState({
           restaurant: 'restaurant',
+          reservedTimes: 'reservedTimes',
       }),
+      timeOptions() {
+        const defaultOptions = [
+            { value: null, text: '시간을 선택해주세요.' },
+            { value: '10:00:00', text: '10:00' },
+            { value: '11:00:00', text: '11:00' },
+            { value: '12:00:00', text: '12:00' },
+            { value: '13:00:00', text: '13:00' },
+            { value: '14:00:00', text: '14:00' },
+            { value: '15:00:00', text: '15:00' },
+            { value: '16:00:00', text: '16:00' },
+            { value: '17:00:00', text: '17:00' },
+            { value: '18:00:00', text: '18:00' },
+            { value: '19:00:00', text: '19:00' },
+            { value: '20:00:00', text: '20:00' },
+        ]
+        defaultOptions.forEach(item => {
+          if (this.reservedTimes.includes(item.value)) {
+            item.disabled = true
+          }
+        });
+        return defaultOptions
+      },
     },
     watch: {
       date(value) {
+        const payload = {
+          seatId: this.selectedSeatId,
+          date: value,
+        }
+        this.fetchReservedTimes(payload)
       },
     },
     methods: {
@@ -157,6 +171,7 @@ export default {
       ...mapActions({
         fetchRestaurant: 'fetchRestaurant',
         reserveRequest: 'reserve',
+        fetchReservedTimes: 'fetchReservedTimes',
       }),
       showModal(seat) {
         this.selectedSeatId = seat.id
