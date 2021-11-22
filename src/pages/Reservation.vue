@@ -2,7 +2,7 @@
     <div class="reservation">
         <navigation />
         <div class="reservation__content">
-            <h3>{{ restaurant.name }}</h3>
+            <h2 class="reservation__title">{{ restaurant.name }}</h2>
 
             <table-card
               class="reservation__card"
@@ -221,6 +221,13 @@ export default {
     align-items: center;
 
     user-select: none;
+}
+
+.reservation__title {
+  width: 100%;
+  margin-bottom: 24px;
+
+  font-weight: bold;
 }
 
 .reservation__content {
