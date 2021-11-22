@@ -103,7 +103,7 @@ import Navigation from '@/components/Navigation.vue'
 import TableCard from '@/components/TableCard.vue'
 import { createNamespacedHelpers } from 'vuex'
 
-const { mapState, mapActions } = createNamespacedHelpers('RestaurantsModule')
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers('RestaurantsModule')
 
 export default {
     name: 'Reservation',
@@ -151,6 +151,9 @@ export default {
       },
     },
     methods: {
+      ...mapMutations([
+        'setReservation',
+      ]),
       ...mapActions({
         fetchRestaurant: 'fetchRestaurant',
         reserveRequest: 'reserve',
@@ -171,6 +174,7 @@ export default {
           email: this.email,
           phoneNumber: this.phoneNumber,
         }
+        this.setReservation({})
         this.reserveRequest(payload)
         this.$router.push('/done')
       },
