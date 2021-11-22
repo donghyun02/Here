@@ -13,6 +13,8 @@ export default {
     },
     searchKeyword: '',
     type: '',
+    reservation: {},
+    isLoading: false,
   }),
   mutations: {
     setRestaurants(state, value) {
@@ -29,6 +31,12 @@ export default {
     },
     setType(state, value) {
       state.type = value
+    },
+    setReservation(state, value) {
+      state.reservation = value
+    },
+    setIsLoading(state, value) {
+      state.isLoading = value
     },
   },
   actions: {
@@ -53,5 +61,18 @@ export default {
           context.commit('setRestaurant', response.data)
         })
     },
+    reserve(context, seatId, datetime, name, email, phoneNumber) {
+      context.commit('setIsLoading', true)
+      axios.post('/reservations/', {
+        seatId,
+        datetime,
+        name,
+        email,
+        phoneNumber,
+      }).then((response) => {
+        context.commit('setReservation', response.data)
+        context.commit('setIsLoading', false)
+      })
+    }
   },
 }
