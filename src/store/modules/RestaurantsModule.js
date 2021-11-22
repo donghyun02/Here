@@ -8,12 +8,17 @@ export default {
     isFetched: false,
     restaurants: [],
     restaurant: {
-      name: 'test',
       seats: [],
     },
     searchKeyword: '',
     type: '',
-    reservation: {},
+    reservation: {
+      seat: {
+        restaurant: {
+          name: '',
+        },
+      },
+    },
     isLoading: false,
   }),
   mutations: {
@@ -65,7 +70,6 @@ export default {
       context.commit('setIsLoading', true)
       axios.post('/reservations/', payload)
         .then((response) => {
-          console.log(response.data)
           context.commit('setReservation', response.data)
           context.commit('setIsLoading', false)
         })

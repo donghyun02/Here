@@ -7,22 +7,26 @@
       <h4 class="done__category"><strong>식당 정보</strong></h4>
       <div class="done__text-set">
         <p class="done__item-title">식당명</p>
-        <p class="done__text">63빌딩 레스토랑</p>
+        <b-skeleton width="40%" v-if="isLoading"></b-skeleton>
+        <p class="done__text" v-else>{{ reservation.seat.restaurant.name }}</p>
       </div>
 
       <div class="done__text-set">
         <p class="done__item-title">날짜</p>
-        <p class="done__text">2021년 11월 11일</p>
+        <b-skeleton width="30%" v-if="isLoading"></b-skeleton>
+        <p class="done__text" v-else>{{ formatDate(reservation.reservedDatetime) }}</p>
       </div>
 
       <div class="done__text-set">
         <p class="done__item-title">시간</p>
-        <p class="done__text">17:00</p>
+        <b-skeleton width="20%" v-if="isLoading"></b-skeleton>
+        <p class="done__text" v-else>{{ formatTime(reservation.reservedDatetime) }}</p>
       </div>
 
       <div class="done__text-set">
         <p class="done__item-title">좌석</p>
-        <p class="done__text">창가 좌석</p>
+        <b-skeleton width="40%" v-if="isLoading"></b-skeleton>
+        <p class="done__text" v-else>{{ reservation.seat.name }}</p>
       </div>
 
       <div class="done__separator"></div>
@@ -31,12 +35,14 @@
 
       <div class="done__text-set">
         <p class="done__item-title">성명</p>
-        <p class="done__text">구민영</p>
+        <b-skeleton width="20%" v-if="isLoading"></b-skeleton>
+        <p class="done__text" v-else>{{ reservation.bookerName }}</p>
       </div>
 
       <div class="done__text-set">
         <p class="done__item-title">전화번호</p>
-        <p class="done__text">000-1111-2222</p>
+        <b-skeleton width="30%" v-if="isLoading"></b-skeleton>
+        <p class="done__text" v-else>{{ reservation.bookerPhoneNumber }}</p>
       </div>
     </div>
   </div>
@@ -44,11 +50,38 @@
 
 <script>
 import Navigation from '@/components/Navigation.vue'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState } = createNamespacedHelpers('RestaurantsModule')
 
 export default {
   name: 'Done',
   components: {
     Navigation,
+  },
+  computed: {
+    ...mapState({
+      reservation: 'reservation',
+      isLoading: 'isLoading',
+    }),
+  },
+  methods: {
+    formatDate(datetimeString) {
+      if (!datetimeString) {
+        return
+      }
+      const date = datetimeString.split('T')[0]
+      const [year, month, day] = date.split('-')
+      return `${year}년 ${month}월 ${day}일`
+    },
+    formatTime(datetimeString) {
+      if (!datetimeString) {
+        return
+      }
+      const time = datetimeString.split('T')[1]
+      const [hour, minute] = time.split(':')
+      return `${hour}:${minute}`
+    },
   },
 }
 </script>
@@ -100,12 +133,15 @@ export default {
 
 .done__text-set {
   width: 500px;
+  height: 40px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .done__item-title {
+  margin: 0;
   font-weight: bold;
 }
 
