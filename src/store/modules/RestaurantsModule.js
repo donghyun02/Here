@@ -73,6 +73,6 @@ export default {
         context.commit('setReservation', response.data)
         context.commit('setIsLoading', false)
       })
-    }
+    },
   },
 }
